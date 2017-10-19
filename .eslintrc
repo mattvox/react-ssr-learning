@@ -1,0 +1,10 @@
+{
+  extends: 'airbnb',
+  rules: {
+    semi: [2, "never"],
+    jsx-quotes: ["error", "prefer-single"],
+    function-paren-newline: ["error", "consistent"],
+    react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }],
+    react/prop-types: [0, { customValidators: skipUndeclared }]
+  }
+}

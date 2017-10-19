@@ -37957,9 +37957,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // eslint-disable-next-line no-underscore-dangle
 var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.compose;
 
-var store = (0, _redux.createStore)(_reducers2.default,
-/* preloadedState, */
-composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default)));
+var store = (0, _redux.createStore)(_reducers2.default, window.INITIAL_STATE, composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default)));
 
 exports.default = store;
 
@@ -38927,27 +38925,29 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Home = __webpack_require__(478);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _Home2 = _interopRequireDefault(_Home);
+var _HomeView = __webpack_require__(480);
 
-var _UsersList = __webpack_require__(479);
+var _HomeView2 = _interopRequireDefault(_HomeView);
 
-var _UsersList2 = _interopRequireDefault(_UsersList);
+var _UsersListView = __webpack_require__(481);
+
+var _UsersListView2 = _interopRequireDefault(_UsersListView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = [{
+exports.default = [_extends({}, _HomeView2.default, {
   path: '/',
-  component: _Home2.default,
   exact: true
-}, {
-  path: '/users',
-  component: _UsersList2.default
-}];
+}), _extends({}, _UsersListView2.default, {
+  path: '/users'
+})];
 
 /***/ }),
-/* 478 */
+/* 478 */,
+/* 479 */,
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38982,10 +38982,12 @@ var Home = function Home() {
   );
 };
 
-exports.default = Home;
+exports.default = {
+  component: Home
+};
 
 /***/ }),
-/* 479 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39061,7 +39063,14 @@ var mapStateToProps = function mapStateToProps(state) {
   return { users: state.users };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchUsers: _actions.fetchUsers })(UsersList);
+var loadData = function loadData(store) {
+  return store.dispatch((0, _actions.fetchUsers)());
+};
+
+exports.default = {
+  loadData: loadData,
+  component: (0, _reactRedux.connect)(mapStateToProps, { fetchUsers: _actions.fetchUsers })(UsersList)
+};
 
 /***/ })
 /******/ ]);

@@ -8,7 +8,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
   reducers,
-  /* preloadedState, */
+  window.INITIAL_STATE,
   composeEnhancers(applyMiddleware(thunk)),
 )
 

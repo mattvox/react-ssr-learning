@@ -1,14 +1,14 @@
-import Home from './components/Home'
-import UsersList from './components/UsersList'
+import HomeView from './views/HomeView'
+import UsersListView from './views/UsersListView'
 
 export default [
   {
+    ...HomeView,
     path: '/',
-    component: Home,
     exact: true,
   },
   {
+    ...UsersListView,
     path: '/users',
-    component: UsersList,
   },
 ]

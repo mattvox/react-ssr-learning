@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter as Router } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import { Provider } from 'react-redux'
+import serialize from 'serialize-javascript'
 
 import routes from '../client/routes'
 
@@ -28,6 +29,9 @@ export default (req, store) => {
       </head>
       <body>
         <div id="root">${content}</div>
+        <script>
+          window.INITIAL_STATE = ${serialize(store.getState())}
+        </script>
         <script src="bundle.js"></script>
       </body>
     </html>

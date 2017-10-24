@@ -3060,6 +3060,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var FETCH_USERS = exports.FETCH_USERS = 'FETCH_USERS';
 var FETCH_CURRENT_USER = exports.FETCH_CURRENT_USER = 'FETCH_CURRENT_USER';
+var FETCH_ADMINS = exports.FETCH_ADMINS = 'FETCH_ADMINS';
 
 var fetchUsers = exports.fetchUsers = function fetchUsers() {
   return function () {
@@ -3125,6 +3126,40 @@ var fetchCurrentUser = exports.fetchCurrentUser = function fetchCurrentUser() {
 
     return function (_x4, _x5, _x6) {
       return _ref2.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchAdmins = exports.fetchAdmins = function fetchAdmins() {
+  return function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch, getState, api) {
+      var response;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return api.get('/admins');
+
+            case 2:
+              response = _context3.sent;
+
+
+              dispatch({
+                type: FETCH_ADMINS,
+                payload: response
+              });
+
+            case 4:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _callee3, undefined);
+    }));
+
+    return function (_x7, _x8, _x9) {
+      return _ref3.apply(this, arguments);
     };
   }();
 };
@@ -38913,6 +38948,10 @@ var _usersReducer = __webpack_require__(476);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
+var _adminsReducer = __webpack_require__(484);
+
+var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
+
 var _authReducer = __webpack_require__(477);
 
 var _authReducer2 = _interopRequireDefault(_authReducer);
@@ -38921,6 +38960,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var rootReducer = (0, _redux.combineReducers)({
   users: _usersReducer2.default,
+  admins: _adminsReducer2.default,
   auth: _authReducer2.default
 });
 
@@ -39001,6 +39041,10 @@ var _UsersListView = __webpack_require__(482);
 
 var _UsersListView2 = _interopRequireDefault(_UsersListView);
 
+var _NotFoundView = __webpack_require__(483);
+
+var _NotFoundView2 = _interopRequireDefault(_NotFoundView);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [_extends({}, _App2.default, {
@@ -39009,7 +39053,7 @@ exports.default = [_extends({}, _App2.default, {
     exact: true
   }), _extends({}, _UsersListView2.default, {
     path: '/users'
-  })]
+  }), _extends({}, _NotFoundView2.default)]
 })];
 
 /***/ }),
@@ -39076,10 +39120,14 @@ var _reactRouterDom = __webpack_require__(159);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var styles = {
+  logo: {
+    paddingLeft: '12px'
+  }
+};
+
 var Header = function Header(_ref) {
   var auth = _ref.auth;
-
-  console.log('auth status: ', auth);
 
   var authButton = auth ? _react2.default.createElement(
     'a',
@@ -39092,31 +39140,43 @@ var Header = function Header(_ref) {
   );
 
   return _react2.default.createElement(
-    'div',
+    'nav',
     null,
     _react2.default.createElement(
-      _reactRouterDom.Link,
-      { to: '/' },
-      _react2.default.createElement(
-        'h1',
-        null,
-        'React SSR'
-      )
-    ),
-    _react2.default.createElement(
       'div',
-      null,
+      { className: 'nav-wrapper' },
       _react2.default.createElement(
         _reactRouterDom.Link,
-        { to: '/users' },
-        'Users'
+        { to: '/', className: 'brand-logo', style: styles.logo },
+        'React SSR'
       ),
       _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: '/admins' },
-        'Admins'
-      ),
-      authButton
+        'ul',
+        { className: 'right' },
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/users' },
+            'Users'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/admins' },
+            'Admins'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          authButton
+        )
+      )
     )
   );
 };
@@ -39148,18 +39208,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Home = function Home() {
   return _react2.default.createElement(
     'div',
-    null,
+    { className: 'center-align', style: { marginTop: '200px' } },
     _react2.default.createElement(
-      'div',
+      'h3',
       null,
-      'Home Component'
+      'Welcome'
     ),
     _react2.default.createElement(
-      'button',
-      { onClick: function onClick() {
-          return console.log('Hi there!');
-        } },
-      'Press Me!'
+      'p',
+      null,
+      'Check out these awesome features'
     )
   );
 };
@@ -39252,6 +39310,66 @@ var loadData = function loadData(store) {
 exports.default = {
   loadData: loadData,
   component: (0, _reactRedux.connect)(mapStateToProps, { fetchUsers: _actions.fetchUsers })(UsersList)
+};
+
+/***/ }),
+/* 483 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NotFound = function NotFound(_ref) {
+  var _ref$staticContext = _ref.staticContext,
+      context = _ref$staticContext === undefined ? {} : _ref$staticContext;
+
+  // eslint-disable-next-line no-param-reassign
+  context.notFound = true;
+
+  return _react2.default.createElement(
+    'h1',
+    { className: 'center-align' },
+    '404, page not found'
+  );
+};
+
+exports.default = {
+  component: NotFound
+};
+
+/***/ }),
+/* 484 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _actions = __webpack_require__(78);
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _actions.FETCH_ADMINS:
+      return action.payload.data;
+    default:
+      return state;
+  }
 };
 
 /***/ })

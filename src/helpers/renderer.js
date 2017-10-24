@@ -7,10 +7,10 @@ import serialize from 'serialize-javascript'
 
 import routes from '../client/routes'
 
-export default (req, store) => {
+export default (req, store, context) => {
   const jsx = (
     <Provider store={store}>
-      <Router location={req.path} context={{}}>
+      <Router location={req.path} context={context}>
         <div>{renderRoutes(routes)}</div>
       </Router>
     </Provider>
@@ -26,6 +26,7 @@ export default (req, store) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>React SSR</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
       </head>
       <body>
         <div id="root">${content}</div>

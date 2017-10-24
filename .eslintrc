@@ -3,6 +3,7 @@
   rules: {
     semi: [2, "never"],
     jsx-quotes: ["error", "prefer-single"],
+    no-unused-expressions: ["error", { "allowShortCircuit": true }],
     function-paren-newline: ["error", "consistent"],
     react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }],
     react/prop-types: [0, { customValidators: skipUndeclared }]

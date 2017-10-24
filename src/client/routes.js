@@ -1,14 +1,20 @@
+import App from './App'
 import HomeView from './views/HomeView'
 import UsersListView from './views/UsersListView'
 
 export default [
   {
-    ...HomeView,
-    path: '/',
-    exact: true,
-  },
-  {
-    ...UsersListView,
-    path: '/users',
+    ...App,
+    routes: [
+      {
+        ...HomeView,
+        path: '/',
+        exact: true,
+      },
+      {
+        ...UsersListView,
+        path: '/users',
+      },
+    ],
   },
 ]

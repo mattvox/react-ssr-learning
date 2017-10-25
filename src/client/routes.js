@@ -1,6 +1,7 @@
 import App from './App'
 import HomeView from './views/HomeView'
 import UsersListView from './views/UsersListView'
+import AdminsListView from './views/AdminsListView'
 import NotFoundView from './views/NotFoundView'
 
 export default [
@@ -15,6 +16,10 @@ export default [
       {
         ...UsersListView,
         path: '/users',
+      },
+      {
+        ...AdminsListView,
+        path: '/admins',
       },
       {
         ...NotFoundView,

@@ -8,7 +8,9 @@ import Header from './components/Header'
 const App = ({ route }) => (
   <div>
     <Header />
-    {renderRoutes(route.routes)}
+    <div className='container'>
+      {renderRoutes(route.routes)}
+    </div>
   </div>
 )
 

@@ -25,11 +25,17 @@ app.get('*', (req, res) => {
 
   const promises = matchRoutes(routes, req.path).map(({ route }) => (
     route.loadData ? route.loadData(store) : null
+  )).map(promise => (
+    promise && new Promise((resolve /* , reject */) => {
+      promise.then(resolve).catch(resolve)
+    })
   ))
 
   Promise.all(promises).then(() => {
     const context = {}
     const content = renderer(req, store, context)
+
+    context.url && res.redirect(301, context.url)
 
     context.notFound && res.status(404)
 

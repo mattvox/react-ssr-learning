@@ -1,4 +1,4 @@
-# React 16 Server Side Rendering Example
+# React Server Side Rendering Example
 
 A simple React SSR example exploring the subtle differences in React 16 and React Router v4.
 
